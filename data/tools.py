@@ -13,3 +13,17 @@ def load_nc(fp: str) -> xr.DataArray:
     """
     ds = xr.load_dataarray(fp)
     return ds
+
+
+def split_ds(ds):
+    """将数据集分割为训练集和测试集
+
+    Args:
+        ds ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
+    ts = None
+    vs = None
+    return ts, vs
