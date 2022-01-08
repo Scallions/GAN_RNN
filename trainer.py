@@ -12,7 +12,7 @@ class Trainer:
     def __init__(self) -> None:
         
         ### 定义一些超参数
-        self.data_dir = None
+        self.data_dir = "./dataset/CSR_grid_DDK3.nc"
         self.model = None # 模型
         self.out_dir = None # 输出路径
         self.opt = None # 优化器
@@ -22,11 +22,13 @@ class Trainer:
         self.val_ds = None # 测试集
         self.loss_fn = None # 损失函数
         
+        self.set_ds()
+        
     def train(self):
         
         for epoch in tqdm(range(self.epoch)):
             
-            for x, y in tqdm(self.train_ds):
+            for batch, (x, y) in tqdm(enumerate(self.train_ds)):
                 
                 y_hat = self.model(x)
                 loss = self.loss_fn(y_hat, y)
@@ -49,5 +51,5 @@ class Trainer:
         """
         ds = SmbDataset(self.data_dir)
         ts, vs = split_ds(ds)
-        self.train_ds = DataLoader(ts)
-        self.val_ds = DataLoader(vs)
+        self.train_ds = DataLoader(ts, batch_size=8, shuffle=True, drop_last=True)
+        self.val_ds = DataLoader(vs, batch_size=8)

@@ -1,5 +1,5 @@
 import xarray as xr
-
+from paddle.io import random_split
 
 
 def load_nc(fp: str) -> xr.DataArray:
@@ -24,6 +24,8 @@ def split_ds(ds):
     Returns:
         [type]: [description]
     """
-    ts = None
-    vs = None
+    length = len(ds)
+    train_len = int(0.8 * length)
+    val_len = length - train_len
+    ts, vs = random_split(ds, [train_len, val_len])
     return ts, vs

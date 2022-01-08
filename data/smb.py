@@ -19,7 +19,13 @@ class SmbDataset(Dataset):
         Returns:
             [type]: [description]
         """
-        return self.smb_data[idx:idx+12, :, :], self.smb_data[idx+12, :, :]
+        return self.smb_data[idx:idx+24, :, :].to_numpy(), self.smb_data[idx+24:idx+36, :, :].to_numpy()
     
     def __len__(self):
-        return self.smb_data.shape[0] - 12
+        return self.smb_data.shape[0] - 35
+    
+    
+if __name__ == '__main__':
+    ds = SmbDataset("./dataset/CSR_grid_DDK3.nc")
+    xs = next(iter(ds))
+    print(xs)
