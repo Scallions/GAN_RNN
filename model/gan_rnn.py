@@ -1,7 +1,5 @@
-from numpy import int_
 import paddle
 import paddle.nn as nn
-from xarray.coding.cftimeindex import trailing_optional
 
 
 
@@ -18,12 +16,12 @@ class DCGAN(nn.Layer):
     
     
 
-class LSTM_GAN(nn.Layer):
+class RNN_GAN(nn.Layer):
     def __init__(self, inp_size: int, hidden_size: int) -> None:
         super().__init__()
    
-        # lstm 编码
-        self.lstm = nn.LSTM(inp_size, hidden_size, num_layers=2)
+        # rnn 编码
+        self.rnn = nn.LSTM(inp_size, hidden_size, num_layers=2)
         self.gan = DCGAN(hidden_size, inp_size)
     
     def forward(self, x: paddle.Tensor) -> None:

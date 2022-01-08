@@ -9,7 +9,7 @@ def load_nc(fp: str) -> xr.DataArray:
         fp (str): 文件的路径
 
     Returns:
-        xr.DataArray: 文件保存的数据
+        xr.DataArray: 文件保存的数据，一般是（t，lat，lon）
     """
     ds = xr.load_dataarray(fp)
     return ds
