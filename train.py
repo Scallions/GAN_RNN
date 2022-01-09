@@ -5,6 +5,9 @@
 
 
 
+from trainer import Trainer
+
+
 def parse_args():
     """解析参数
     """
@@ -12,7 +15,9 @@ def parse_args():
 
 
 def main():
-    pass
+    
+    trainer = Trainer()
+    trainer.train()
 
 
 
