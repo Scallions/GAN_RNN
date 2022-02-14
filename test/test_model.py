@@ -11,7 +11,14 @@ from data.test import TestDataset
 def smb_hidden_inp():
     # ds = SmbTsDataset("./dataset/CSR_grid_DDK3.nc")
     # xs = next(iter(ds))
-    xs = paddle.rand([2, 1, 9, 20]) # b t i batch time dim
+    xs = paddle.rand([2, 1, 180]) # b t i batch time dim
+    return xs # shape 24, 181, 360
+
+@pytest.fixture
+def smb_inp():
+    # ds = SmbTsDataset("./dataset/CSR_grid_DDK3.nc")
+    # xs = next(iter(ds))
+    xs = paddle.rand([2, 1, 181, 360]) # b t i batch time dim
     return xs # shape 24, 181, 360
 
 @pytest.fixture
@@ -28,7 +35,7 @@ class TestGAN:
     def test_output_shape(self, smb_hidden_inp, gan_model):
         # assert smb_inp.shape == (24, 181, 360)
         ## 检测inp shape
-        assert smb_hidden_inp.shape == [2, 1, 9, 20]
+        assert smb_hidden_inp.shape == [2, 1, 180]
         out = gan_model(smb_hidden_inp)
         assert out.shape == [2,1, 181, 360]
 
@@ -37,9 +44,8 @@ class TestGAN:
 
 class TestRNN:
 
-    def test_lstm_out(self, smb_hidden_inp, lstm_model):
-        inp = paddle.reshape(smb_hidden_inp, [2,1,180])
-        out = lstm_model(inp)
+    def test_lstm_out(self, smb_inp, lstm_model):
+        out = lstm_model(smb_inp)
         assert out.shape == [2, 1, 180]
 
 

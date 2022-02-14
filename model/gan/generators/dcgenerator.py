@@ -103,5 +103,7 @@ class DCGenerator(nn.Layer):
 
     def forward(self, x):
         """Standard forward"""
+        b = x.shape[0]
+        x = paddle.reshape(x, [b,-1,9,20])
         x = self.model(x)
         return x[:,:,:181,:360] # 调整输出大小

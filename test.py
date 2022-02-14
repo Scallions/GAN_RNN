@@ -30,7 +30,7 @@ print(out.shape)
 ## test dcgan
 from model.gan.dcgan import DCGAN
 dcgan = DCGAN(-1,-1)
-inp = paddle.rand([2,1,9,20])
+inp = paddle.rand([2,1,180])
 out = dcgan.forward(inp)
 print(out.shape)
 print(dcgan.gan_criterion(dcgan.D(out), False))
@@ -38,5 +38,6 @@ print(dcgan.gan_criterion(dcgan.D(out), False))
 ## test lstm
 from model.rnn.lstm import LSTM
 lstm = LSTM()
-inp = paddle.rand([1,24,181,360])
-out = LSTM()
+inp = paddle.rand([2,1,181,360])
+out = lstm(inp)
+print(out.shape)
