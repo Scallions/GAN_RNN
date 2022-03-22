@@ -5,10 +5,13 @@
 import paddle
 from paddle.io import Dataset
 
-
+"""
+给gan使用的测试数据集
+"""
 class TestDataset(Dataset):
+
     def __init__(self):
-        self.smb_data = paddle.rand([180, 20, 20])
+        self.smb_data = paddle.rand([12, 1, 181, 360])
 
     def __getitem__(self, idx):
         """按idx获取数据
@@ -24,9 +27,13 @@ class TestDataset(Dataset):
     def __len__(self):
         return self.smb_data.shape[0]
 
+
+"""
+给lstm使用的测试数据集
+"""
 class TestTsDataset(Dataset):
     def __init__(self):
-        self.smb_data = paddle.rand([180, 20, 20])
+        self.smb_data = paddle.rand([180, 9, 20])
 
     def __getitem__(self, idx):
         """按idx获取数据

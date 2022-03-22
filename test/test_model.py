@@ -18,12 +18,12 @@ def smb_hidden_inp():
 def smb_inp():
     # ds = SmbTsDataset("./dataset/CSR_grid_DDK3.nc")
     # xs = next(iter(ds))
-    xs = paddle.rand([2, 1, 181, 360]) # b t i batch time dim
+    xs = paddle.rand([2, 24, 181, 360]) # b t i batch time dim
     return xs # shape 24, 181, 360
 
 @pytest.fixture
 def lstm_model():
-    return LSTM()
+    return LSTM(24)
 
 @pytest.fixture
 def gan_model():
@@ -46,7 +46,7 @@ class TestRNN:
 
     def test_lstm_out(self, smb_inp, lstm_model):
         out = lstm_model(smb_inp)
-        assert out.shape == [2, 1, 180]
+        assert out.shape == [2, 24, 180]
 
 
     def test_output_shape(self):

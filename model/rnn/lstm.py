@@ -6,11 +6,15 @@ import paddle.nn.functional as F
 from ..modules.norm import build_norm_layer
 from ..modules.map2hidden import map2hidden
 
+
+"""
+LSTM模块，首先将高维映射到低维，然后在低维进行LSTM
+"""
 class LSTM(nn.Layer):
-    def __init__(self):
+    def __init__(self, timestep):
         super().__init__()
 
-        self.hidden = map2hidden()
+        self.hidden = map2hidden(timestep)
         self.lstm = nn.LSTM(180, 180, 2)
 
     def forward(self, x):
@@ -20,6 +24,6 @@ class LSTM(nn.Layer):
 
 
 if __name__ ==  '__main__':
-    model = LSTM()
+    model = LSTM(24)
     inp = paddle.rand([2, 24, 180])
     print(model(inp).shape)

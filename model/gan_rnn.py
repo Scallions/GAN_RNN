@@ -1,8 +1,9 @@
+import imp
 import paddle
 from paddle.fluid.layers.rnn import rnn
 import paddle.nn as nn
-
-
+from .gan.dcgan import DCGAN
+from .rnn.lstm import LSTM
 
 
 
@@ -12,7 +13,7 @@ class RNN_GAN:
         super().__init__()
 
         # rnn 编码
-        self.rnn = nn.LSTM(inp_size, hidden_size, num_layers=2)
+        self.rnn = LSTM(24)
         self.gan = DCGAN(hidden_size, inp_size)
 
     def forward(self, x: paddle.Tensor) -> None:
@@ -57,7 +58,7 @@ class RNN_GAN:
                 opt.step()
                 opt.clear_grad()
 
-    def train(self):
+    def train(self, ds: paddle.io.DataLoader):
         # 先训练gan
 
 

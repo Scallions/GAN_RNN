@@ -102,7 +102,10 @@ class DCGenerator(nn.Layer):
         self.model = nn.Sequential(*model)
 
     def forward(self, x):
-        """Standard forward"""
+        """Standard forward
+        x 后两维度必须为180
+        """
+        assert x.shape[-1]*x.shape[-2] == 180
         b = x.shape[0]
         x = paddle.reshape(x, [b,-1,9,20])
         x = self.model(x)
