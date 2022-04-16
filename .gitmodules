@@ -1,0 +1,3 @@
+[submodule "model/informer"]
+	path = model/informer
+	url = git@github.com:Scallions/Informer2020.git

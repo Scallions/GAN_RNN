@@ -45,7 +45,7 @@ class DCGAN(IGAN):
                 self.set_requires_grad(self.G, False)
                 self.set_requires_grad(self.D, True)
                 b = x.shape[0]
-                z = paddle.rand(shape=[b,1,9,20])
+                z = paddle.randn(shape=[b,1,9,20])
                 f_x = self.G(z)
                 p_fx = self.D(f_x)
                 fl = paddle.full_like(p_fx, 0)
@@ -69,3 +69,4 @@ class DCGAN(IGAN):
                 opt_g.step()
                 opt_g.clear_grad()
 
+        paddle.save(self.G.state_dict(), "checkpoints/G.pdmodel")
