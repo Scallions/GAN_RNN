@@ -1,0 +1,22 @@
+
+
+
+# MODEL:
+#   type: DCGAN
+
+
+informer:
+  type: Informer
+  enc_in: 35
+  dec_in: 35
+  c_out: 35
+  seq_len: 384
+  label_len: 96
+  out_len: 96
+  attn: "full"
+
+pred_len: 96
+label_len: 96
+ds:
+  type: Dataset_hour
+  root_path: "."

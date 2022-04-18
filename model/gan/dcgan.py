@@ -8,7 +8,9 @@ from .igan import IGAN
 # from .discriminators.testdis import TDIS as DIS
 from .generators.dcgenerator import DCGenerator as GEN
 from .discriminators.dcdiscriminator import DCDiscriminator as DIS
+from ..libs import manager
 
+@manager.MODELS.add_component
 class DCGAN(IGAN):
     def __init__(self, inp_size: int=1, out_size: int=1) -> None:
         super().__init__()
