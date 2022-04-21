@@ -1,3 +1,6 @@
 [submodule "model/informer"]
 	path = model/informer
 	url = git@github.com:Scallions/Informer2020.git
+[submodule "model/skillful_nowcasting"]
+	path = model/skillful_nowcasting
+	url = git@github.com:Scallions/skillful_nowcasting_paddle.git
