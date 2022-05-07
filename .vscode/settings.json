@@ -3,5 +3,24 @@
         "test"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "todo.file.exclude": [
+        "**/.!(todo|todos|task|tasks)/**",
+        "**/_output/**",
+        "**/bower_components/**",
+        "**/build/**",
+        "**/dist/**",
+        "**/venv/**",
+        "**/node_modules/**",
+        "**/out/**",
+        "**/output/**",
+        "**/release/**",
+        "**/releases/**",
+        "**/static/**",
+        "**/target/**",
+        "**/third_party/**",
+        "**/vendor/**",
+        "**/.git/**"
+    ],
+    "jupyter.debugJustMyCode": true
 }

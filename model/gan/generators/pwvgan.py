@@ -13,8 +13,7 @@ class PWVGenerator(nn.Layer):
                  input_nz,
                  output_nc,
                  ngf=64,
-                 out_w = 64,
-                 out_h = 31,
+                 dropout = 0.1,
                  norm_type='batch',
                  padding_type='reflect'):
         """Construct a DCGenerator generator
@@ -25,9 +24,7 @@ class PWVGenerator(nn.Layer):
             norm_layer: normalization layer
             padding_type (str): the name of padding layer in conv layers: reflect | replicate | zero
         """
-        super().__init__()
-        self.out_w = out_w
-        self.out_h = out_h
+        super(self).__init__()
 
         norm_layer = build_norm_layer(norm_type)
         if type(norm_layer) == functools.partial:
@@ -47,7 +44,8 @@ class PWVGenerator(nn.Layer):
                                    padding=0,
                                    bias_attr=use_bias),
                 BatchNorm2D(ngf * mult),
-                nn.ReLU()
+                nn.ReLU(),
+                nn.Dropout(dropout)
             ]
         else:
             model = [
@@ -58,7 +56,8 @@ class PWVGenerator(nn.Layer):
                                    padding=0,
                                    bias_attr=use_bias),
                 norm_layer(ngf * mult),
-                nn.ReLU()
+                nn.ReLU(),
+                nn.Dropout(dropout)
             ]
 
         # add upsampling layers
@@ -73,7 +72,8 @@ class PWVGenerator(nn.Layer):
                                        padding=1,
                                        bias_attr=use_bias),
                     BatchNorm2D(ngf * mult // 2),
-                    nn.ReLU()
+                    nn.ReLU(),
+                    nn.Dropout(dropout)
                 ]
             else:
                 model += [
@@ -84,7 +84,8 @@ class PWVGenerator(nn.Layer):
                                        padding=1,
                                        bias_attr=use_bias),
                     norm_layer(int(ngf * mult // 2)),
-                    nn.ReLU()
+                    nn.ReLU(),
+                    nn.Dropout(dropout)
                 ]
 
         model += [
@@ -105,5 +106,5 @@ class PWVGenerator(nn.Layer):
         x = paddle.reshape(x, [b,-1,1,1])
         x = self.model(x)
         # return x[:,:,:31,:66].reshape([-1,31,66]) # 调整输出大小
-        return x[:,:,:self.out_h,:self.out_w].reshape([-1,self.out_h,self.out_w]) # 调整输出大小
+        return x[:,:,:31,:64].reshape([b,31,64]) # 调整输出大小
         # return x
